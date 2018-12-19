@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emojify</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .hero-image {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../../static/a.jpg");
+      height: 75%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+    }
+    input[type=text], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .hero-text {
+      font-family: "Raleway", Helvetica, sans-serif;
+      text-align: center;
+      position: absolute;
+      top: 25%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+    }
+    .hero-text1 {
+      font-family: "Raleway", Helvetica, sans-serif;
+      text-align: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      width: 50%;
+    }
+
+    .hero-text2 {
+      font-family: "Raleway", Helvetica, sans-serif;
+      text-align: center;
+      position: absolute;
+      top: 85%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      width: 100%;
+      height: 100%;
+    }
+    p {font-size:50px;}
+
+    </style>
+</head>
+<body>
+
+    <div class="hero-image">
+        <div class="hero-text">
+            <h1 style="font-size:50px">Emojify</h1>
+        </div>
+        <div class="hero-text1">
+            <input type="text" placeholder="Enter Text to Emojify" required="" name="emoji_text" maxlength="500" id="emoji_text" autofocus="">
+            <p></p>
+        </div>
+        <div class="hero-text2">
+            <p></p>
+        </div>
+    </div>
+
+</body>
+    <script>
+        $("#emoji_text").change(function () {
+        var emoji_text = $(this).val();
+        console.log(emoji_text)
+        $.ajax({
+        url: '/ajax/predict_emoji/',
+        data: {
+          'emoji_text': emoji_text
+        },
+        dataType: 'json',
+        success: function (data) {
+             $("p:first").html(data);
+        }
+        });
+
+        });
+    </script>
+
+</html>
